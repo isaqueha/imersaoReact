@@ -4,7 +4,7 @@ import './index.css';
 import Home from './pages/Home';
 
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { CadastroVideo, NotFound } from './pages/cadastro/video';
+import CadastroVideo from './pages/cadastro/video';
 import CadastroCategoria from './pages/cadastro/categoria';
 
 ReactDOM.render(
@@ -13,7 +13,7 @@ ReactDOM.render(
       <Route path="/" component={Home} exact />
       <Route path="/cadastro/video" component={CadastroVideo} />
       <Route path="/cadastro/categoria" component={CadastroCategoria} />
-      <Route component={NotFound} />
+      <Route component={() => (<div>Not Found</div>)} />
     </Switch>
   </BrowserRouter>,
   document.getElementById('root')
