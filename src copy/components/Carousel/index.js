@@ -1,6 +1,8 @@
 import React from 'react';
-import { VideoCardGroupContainer, VideoCardList, Title, ExtraLink } from './styles';
+import { VideoCardGroupContainer, Title, ExtraLink } from './styles';
 import VideoCard from './components/VideoCard';
+import Slider from '../../../src/components/Carousel/components/Slider';
+
 
 function VideoCardGroup({
   ignoreFirstVideo,
@@ -24,7 +26,7 @@ function VideoCardGroup({
           }
         </>
       )}
-      <VideoCardList>
+      <Slider>
         {videos.map((video, index) => {
           if (ignoreFirstVideo && index === 0) {
             return null;
@@ -40,7 +42,7 @@ function VideoCardGroup({
             </li>
           );
         })}
-      </VideoCardList>
+      </Slider>
     </VideoCardGroupContainer>
   );
 }
