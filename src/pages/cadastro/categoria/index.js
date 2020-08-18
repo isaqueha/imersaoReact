@@ -3,78 +3,81 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForm';
 
 function CadastroCategoria() {
-  const [categories, setCategories] = useState([]);
-  const initialValues = {
+  const valoresIniciais = {
     name: '',
-    description: '',
-    color: '',
+    descricao: '',
+    cor: '',
   };
-  const [values, setValues] = useState(initialValues);
 
-  function setValue(key, value) {
-    setValues({
-      ...values,
-      [key]: value,
-    });
-  }
+  const { handleChange, values, clearForm } = useForm(valoresIniciais);
 
-  function handleChange(event) {
-    setValue(
-      event.target.getAttribute('name'),
-      event.target.value,
-    );
-  }
+  const [categorias, setCategorias] = useState([]);
 
   useEffect(() => {
-    if (window.location.href.includes('localhost')) {
-      const URL = 'http://localhost:8080/categorias';
-      fetch(URL)
-        .then(async (respostaDoServer) => {
-          if (respostaDoServer.ok) {
-            const resposta = await respostaDoServer.json();
-            setCategories(resposta);
-            return;
-          }
-          throw new Error('Não foi possível pegar os dados');
-        });
-    }
+    const URL_TOP = window.location.hostname.includes('localhost')
+      ? 'http://localhost:8080/categorias'
+      : 'https://devsoutinhoflix.herokuapp.com/categorias';
+    // E a ju ama variáveis
+    fetch(URL_TOP)
+      .then(async (respostaDoServidor) => {
+        const resposta = await respostaDoServidor.json();
+        setCategorias([
+          ...resposta,
+        ]);
+      });
+
+    // setTimeout(() => {
+    //   setCategorias([
+    //     ...categorias,
+    //     {
+    //       id: 1,
+    //       name: 'Front End',
+    //       descricao: 'Uma categoria bacanudassa',
+    //       cor: '#cbd1ff',
+    //     },
+    //     {
+    //       id: 2,
+    //       name: 'Back End',
+    //       descricao: 'Outra categoria bacanudassa',
+    //       cor: '#cbd1ff',
+    //     },
+    //   ]);
+    // }, 4 * 1000);
   }, []);
 
   return (
     <PageDefault>
       <h1>
         Cadastro de Categoria:
-        {' '}
         {values.name}
       </h1>
 
-      <form onSubmit={function handleSubmit(event) {
-        event.preventDefault();
-        setCategories([
-          ...categories,
+      <form onSubmit={function handleSubmit(infosDoEvento) {
+        infosDoEvento.preventDefault();
+        setCategorias([
+          ...categorias,
           values,
         ]);
 
-        setValues(initialValues);
+        clearForm();
       }}
       >
 
         <FormField
           label="Nome da Categoria"
-          type="text"
           name="name"
           value={values.name}
           onChange={handleChange}
         />
 
         <FormField
-          as="textarea"
           label="Descrição"
           type="textarea"
-          name="description"
-          value={values.description}
+          name="descricao"
+          value={values.descricao}
           onChange={handleChange}
         />
 
@@ -91,10 +94,17 @@ function CadastroCategoria() {
         </Button>
       </form>
 
+      {categorias.length === 0 && (
+        <div>
+          {/* Cargando... */}
+          Loading...
+        </div>
+      )}
+
       <ul>
-        {categories.map((category) => (
-          <li key={`${category.name}`}>
-            {category.name}
+        {categorias.map((categoria) => (
+          <li key={`${categoria.name}`}>
+            {categoria.name}
           </li>
         ))}
       </ul>
