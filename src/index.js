@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Home from './pages/Home';
 
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import CadastroVideo from './pages/cadastro/video';
 import CadastroCategoria from './pages/cadastro/categoria';
 
@@ -16,5 +16,5 @@ ReactDOM.render(
       <Route component={() => (<div>Not Found</div>)} />
     </Switch>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById('root'),
 );
