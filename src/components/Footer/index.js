@@ -1,17 +1,17 @@
 import React from 'react';
-import { FooterBase } from './styles';
+import FooterBase from './styles';
 
 function Footer() {
   return (
     <FooterBase>
-      <a href="https://www.alura.com.br/">
-        <img src="https://www.alura.com.br/assets/img/alura-logo-white.1570550707.svg" alt="Logo Alura" />
-      </a>
       <p>
-        Orgulhosamente criado durante a
+        Created with love by
         {' '}
-        <a href="https://www.alura.com.br/">
-          Imersão React da Alura
+        <a href="https://github.com/isaqueha">
+          Isaque Hoffmeister
+        </a>
+        <a href="https://github.com/isaqueha">
+          <img src="https://avatars3.githubusercontent.com/u/13629975?s=460&u=1594f8d61791752990f25cdc40def2129154ad4b&v=4" alt="Profile Picture" />
         </a>
       </p>
     </FooterBase>
