@@ -7,7 +7,7 @@ import Button from '../../../components/Button';
 import videosRepository from '../../../repositories/videos';
 import categoriasRepository from '../../../repositories/categorias';
 
-function CadastroVideo() {
+function RegisterGame() {
   const history = useHistory();
   const [categorias, setCategorias] = useState([]);
   const categoryTitles = categorias.map(({ name }) => name);
@@ -27,7 +27,7 @@ function CadastroVideo() {
 
   return (
     <PageDefault>
-      <h1>Cadastro de Video</h1>
+      <h1>Game Registration</h1>
 
       <form onSubmit={(event) => {
         event.preventDefault();
@@ -69,18 +69,18 @@ function CadastroVideo() {
         />
 
         <Button type="submit">
-          Cadastrar
+          Register
         </Button>
       </form>
 
       <br />
       <br />
 
-      <Link to="/cadastro/categoria">
-        Cadastrar Categoria
+      <Link to="/register/category">
+        Register Category
       </Link>
     </PageDefault>
   );
 }
 
-export default CadastroVideo;
+export default RegisterGame;
