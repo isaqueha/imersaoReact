@@ -4,24 +4,24 @@ import PageDefault from '../../../components/PageDefault';
 import useForm from '../../../hooks/useForm';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
-import videosRepository from '../../../repositories/videos';
-import categoriasRepository from '../../../repositories/categorias';
+import gamesRepository from '../../../repositories/games';
+import categoriesRepository from '../../../repositories/categories';
 
 function RegisterGame() {
   const history = useHistory();
-  const [categorias, setCategorias] = useState([]);
-  const categoryTitles = categorias.map(({ name }) => name);
+  const [categories, setCategories] = useState([]);
+  const categoryTitles = categories.map(({ name }) => name);
   const { handleChange, values } = useForm({
-    name: 'Video padrão',
-    url: 'https://www.youtube.com/watch?v=jOAU81jdi-c',
-    categoria: 'Front End',
+    name: 'Default Game',
+    url: 'https://itch.io/embed/696379',
+    category: 'Action',
   });
 
   useEffect(() => {
-    categoriasRepository
+    categoriesRepository
       .getAll()
-      .then((categoriasFromServer) => {
-        setCategorias(categoriasFromServer);
+      .then((categoriesFromServer) => {
+        setCategories(categoriesFromServer);
       });
   }, []);
 
@@ -31,23 +31,22 @@ function RegisterGame() {
 
       <form onSubmit={(event) => {
         event.preventDefault();
-        // alert('Video Cadastrado com sucesso!!!1!');
 
-        const categoriaEscolhida = categorias.find((categoria) => categoria.name === values.categoria);
+        const chosenCategory = categories.find((category) => category.name === values.category);
 
-        videosRepository.create({
+        gamesRepository.create({
           name: values.name,
           url: values.url,
-          categoriaId: categoriaEscolhida.id,
+          categoryId: chosenCategory.id,
         })
           .then(() => {
-            console.log('Cadastrou com sucesso!');
+            console.log('Registered successfully!');
             history.push('/');
           });
       }}
       >
         <FormField
-          label="Título do Vídeo"
+          label="Game Title"
           name="name"
           value={values.name}
           onChange={handleChange}
@@ -61,9 +60,9 @@ function RegisterGame() {
         />
 
         <FormField
-          label="Categoria"
-          name="categoria"
-          value={values.categoria}
+          label="Category"
+          name="category"
+          value={values.category}
           onChange={handleChange}
           suggestions={categoryTitles}
         />
