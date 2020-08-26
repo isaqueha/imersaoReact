@@ -1,9 +1,9 @@
 import URL_BACKEND from '../config';
 
-const URL_VIDEOS = `${URL_BACKEND}/videos`;
+const URL_GAMES = `${URL_BACKEND}/games`;
 
 function create(object) {
-  return fetch(`${URL_VIDEOS}?_embed=videos`, {
+  return fetch(`${URL_GAMES}?_embed=games`, {
     method: 'POST',
     headers: {
       'Content-type': 'application/json',
@@ -16,7 +16,7 @@ function create(object) {
         return res;
       }
 
-      throw new Error('Não foi possível cadastrar os dados :(');
+      throw new Error('Not possible to register data');
     });
 }
 
