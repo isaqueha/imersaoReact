@@ -5,10 +5,13 @@ import styled, { css } from 'styled-components';
 const FormFieldWrapper = styled.div`
   position: relative; 
   textarea {
-    min-height: 150px;
+    min-height: 8rem;
   }
   input[type="color"] {
-    padding-left: 56px;
+    padding-left: 5rem;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    cursor: pointer;
   }
 `;
 
@@ -65,7 +68,7 @@ const Input = styled.input`
 `;
 
 function FormField({
-  label, type, name, value, onChange, suggestions,
+  label, type, name, value, onChange, suggestions, ref,
 }) {
   const fieldId = `id_${name}`;
   const isTypeTextarea = type === 'textarea';
@@ -80,6 +83,7 @@ function FormField({
         htmlFor={fieldId}
       >
         <Input
+          ref={ref}
           as={tag}
           id={fieldId}
           type={type}
@@ -125,6 +129,7 @@ FormField.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
+  ref: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   suggestions: PropTypes.arrayOf(PropTypes.string),
 };

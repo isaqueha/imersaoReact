@@ -23,6 +23,7 @@ function useForm(initialValues) {
   return {
     handleChange,
     values,
+    setValues,
     clearForm,
   };
 }
