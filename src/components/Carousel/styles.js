@@ -33,7 +33,7 @@ export const ExtraLink = styled.a`
   }
 `;
 
-export const VideoCardList = styled.ul`
+export const CardList = styled.ul`
   margin: 0;
   padding-left: 0;
   padding-bottom: 32px;
@@ -47,7 +47,7 @@ export const VideoCardList = styled.ul`
   }
 `;
 
-export const VideoCardGroupContainer = styled.section`
+export const CardGroupContainer = styled.section`
   color: white;
   min-height: 197px;
   margin-left: 5%;

@@ -1,20 +1,19 @@
 /* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
-// import dadosIniciais from '../../data/dados_iniciais.json';
 import BannerMain from '../../components/BannerMain';
 import Carousel from '../../components/Carousel';
 import PageDefault from '../../components/PageDefault';
 import categoriesRepository from '../../repositories/categories';
 
 function Home() {
-  const [dadosIniciais, setDadosIniciais] = useState([]);
+  const [initialData, setInitialData] = useState([]);
 
   useEffect(() => {
-    // http://localhost:8080/categorias?_embed=videos
-    categoriesRepository.getAllWithVideos()
-      .then((categoriasComVideos) => {
-        console.log(categoriasComVideos[0].videos[0]);
-        setDadosIniciais(categoriasComVideos);
+    // http://localhost:8080/categories?_embed=games
+    categoriesRepository.getAllWithGames()
+      .then((categoriesWithGames) => {
+        console.log(categoriesWithGames[0].games[0]);
+        setInitialData(categoriesWithGames);
       })
       .catch((err) => {
         console.log(err.message);
@@ -23,20 +22,20 @@ function Home() {
 
   return (
     <PageDefault paddingAll={0}>
-      {dadosIniciais.length === 0 && (<div>Loading...</div>)}
+      {initialData.length === 0 && (<div>Loading...</div>)}
 
-      {dadosIniciais.map((categoria, indice) => {
-        if (indice === 0) {
+      {initialData.map((category, index) => {
+        if (index === 0) {
           return (
-            <div key={categoria.id}>
+            <div key={category.id}>
               <BannerMain
-                videoTitle={dadosIniciais[0].videos[0].name}
-                url={dadosIniciais[0].videos[0].url}
-                videoDescription={dadosIniciais[0].videos[0].description}
+                title={initialData[0].games[0].name}
+                url={initialData[0].games[0].url}
+                description={initialData[0].games[0].description}
               />
               <Carousel
-                ignoreFirstVideo
-                category={dadosIniciais[0]}
+                ignoreFirst
+                category={initialData[0]}
               />
             </div>
           );
@@ -44,8 +43,8 @@ function Home() {
 
         return (
           <Carousel
-            key={categoria.id}
-            category={categoria}
+            key={category.id}
+            category={category}
           />
         );
       })}
