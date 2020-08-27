@@ -27,6 +27,6 @@ function getAllWithGames() {
 }
 
 export default {
-  getAllWithVideos: getAllWithGames,
+  getAllWithGames,
   getAll,
 };

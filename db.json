@@ -30,7 +30,8 @@
     {
       "id": 4,
       "name": "Filmes",
-      "color": "orange"
+      "color": "#e70404",
+      "description": "FILMAÇO"
     },
     {
       "id": 5,
@@ -40,6 +41,24 @@
         "text": "Formação de Jogos na Alura",
         "url": "https://www.alura.com.br/cursos-online-front-end"
       }
+    },
+    {
+      "name": "NEW",
+      "description": "NEW",
+      "color": "#ff0000",
+      "id": 13
+    },
+    {
+      "name": "BLABLA",
+      "description": "BLABLA",
+      "color": "#00ff08",
+      "id": 14
+    },
+    {
+      "name": "NOVO",
+      "description": "NOVONOVO",
+      "color": "#cc1e1e",
+      "id": 15
     }
   ],
   "games": [
