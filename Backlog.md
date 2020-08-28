@@ -4,11 +4,13 @@
 - [x] CRUD Category
 	- [x] Update (with ID) in DB
 	- [x] Delete
-- [] 3DFlix or CrossFlix or GamesFlix
-- [] Focus top of form on Edit
+- [x] 3DFlix or CrossFlix or GamesFlix
+- [x] Fix FavIcon
+- [x] Header image
 - [] CRUD Game
 	- [] Update (with ID) in DB
-	- [] Delete
+	- [x] Delete
+- [] Focus top of form on Edit
 - [] Open Game in new tab
 - [] Embed Game as in itch.io
 - [] Translate to English

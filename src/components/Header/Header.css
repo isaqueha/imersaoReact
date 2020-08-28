@@ -1,9 +1,17 @@
 .Logo {
   max-width: 168px;
 }
+.Image {
+  max-width: 40px;
+  margin-right: 0.5rem;
+}
 @media (max-width: 800px) {
   .Logo {
     max-width: 105px;
+  }
+  .Image {
+    max-width: 25px;
+    margin-right: 0.5rem;
   }
 }
 
