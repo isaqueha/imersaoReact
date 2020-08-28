@@ -68,7 +68,7 @@ const Input = styled.input`
 `;
 
 function FormField({
-  label, type, name, value, onChange, suggestions, ref,
+  label, type, name, value, onChange, suggestions,
 }) {
   const fieldId = `id_${name}`;
   const isTypeTextarea = type === 'textarea';
@@ -77,13 +77,19 @@ function FormField({
   const hasValue = Boolean(value.length);
   const hasSuggestions = Boolean(suggestions.length);
 
+  // const [inputRef, setInputFocus] = useFocus();
+  // const focusField = () => {
+  // };
+  // setInputFocus();
+  // ref={inputRef}
+  // import useFocus from '../../../hooks/useFocus';
+
   return (
     <FormFieldWrapper>
       <Label
         htmlFor={fieldId}
       >
         <Input
-          ref={ref}
           as={tag}
           id={fieldId}
           type={type}
@@ -129,7 +135,6 @@ FormField.propTypes = {
   type: PropTypes.string,
   name: PropTypes.string.isRequired,
   value: PropTypes.string,
-  ref: PropTypes.string.isRequired,
   onChange: PropTypes.func,
   suggestions: PropTypes.arrayOf(PropTypes.string),
 };
