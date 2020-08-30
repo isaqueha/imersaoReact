@@ -53,20 +53,35 @@ function RegisterGame() {
 
       <form onSubmit={(event) => {
         event.preventDefault();
-
-        const chosenGame = games.find((game) => game.id === values.id);
-
-        gamesRepository.create({
+        const objectAffected = {
           name: values.name,
           url: values.url,
-          categoryId: chosenGame.id,
-        })
-          .then(() => {
-            console.log('Registered successfully!');
-            // history.push('/');
-          });
+          gameId: values.id,
+        };
+
+        const isEditMode = games.find((game) => game.id === values.id);
+
+        if (isEditMode) {
+          gamesRepository.update(objectAffected)
+            .then(() => {
+              console.log('Updated successfully!');
+              // history.push('/');
+            });
+        } else {
+          gamesRepository.create(objectAffected)
+            .then((res) => {
+              console.log('Registered successfully!');
+              // history.push('/');
+              setGames([
+                ...games,
+                res,
+              ]);
+            });
+        }
+        clearForm();
       }}
       >
+
         <FormField
           label="Game Title"
           name="name"
