@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import useForm from '../../../hooks/useForm';
 import FormField from '../../../components/FormField';
@@ -8,7 +8,6 @@ import gamesRepository from '../../../repositories/games';
 import categoriesRepository from '../../../repositories/categories';
 
 function RegisterGame() {
-  const history = useHistory();
   const [games, setGames] = useState([]);
   const [categories, setCategories] = useState([]);
   const categoryTitles = categories.map(({ name }) => name);
@@ -21,17 +20,21 @@ function RegisterGame() {
     handleChange, values, setValues, clearForm,
   } = useForm(initialData);
 
+  const reloadList = () => {
+    gamesRepository
+      .getAll()
+      .then((res) => {
+        setGames(res);
+      });
+  };
+
   useEffect(() => {
     categoriesRepository
       .getAll()
       .then((categoriesFromServer) => {
         setCategories(categoriesFromServer);
       });
-    gamesRepository
-      .getAll()
-      .then((gamesFromServer) => {
-        setGames(gamesFromServer);
-      });
+    reloadList();
   }, []);
 
   const handleEdit = (game) => {
@@ -43,7 +46,7 @@ function RegisterGame() {
     gamesRepository.remove(game.id)
       .then(() => {
         console.log('Deleted successfully!');
-        setGames(games.filter((item) => item.id !== game.id));
+        reloadList();
       });
   };
 
@@ -65,19 +68,16 @@ function RegisterGame() {
           gamesRepository.update(objectAffected)
             .then(() => {
               console.log('Updated successfully!');
-              // history.push('/');
+              reloadList();
             });
         } else {
           gamesRepository.create(objectAffected)
-            .then((res) => {
+            .then(() => {
               console.log('Registered successfully!');
-              // history.push('/');
-              setGames([
-                ...games,
-                res,
-              ]);
+              reloadList();
             });
         }
+
         clearForm();
       }}
       >

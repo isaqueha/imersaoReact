@@ -10,14 +10,18 @@
 - [x] CRUD Game
 	- [x] Update (with ID) in DB
 	- [x] Delete
-- [] Have REST methods in Category files
-- [] Refresh lists after CRUD
+- [x] Have REST methods in Repository files
+- [x] Refresh lists after CRUD
+	- UseEffect here
+- [] Change "Register" Button according to create/delete
+- [] Better "Edit" and "Delete" Buttons
+- [] Category Mapping bug in Game Registration
 - [] Focus top of form on Edit
+	- Use Redux? Possibly Yes!
 - [] Open Game in new tab
 - [] Embed Game as in itch.io
 - [] Hover Game Big Preview
-- [] Translate to English
 - [] Refactor
 	- [] unnecessary code
-	- [] PT to EN
+	- [] Translate to English - PT to EN
 	
