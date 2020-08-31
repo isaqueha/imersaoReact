@@ -4,6 +4,7 @@ import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import useForm from '../../../hooks/useForm';
+import categoriesRepository from '../../../repositories/categories';
 
 function CategoryRegistration() {
   const initialData = {
@@ -17,18 +18,19 @@ function CategoryRegistration() {
   } = useForm(initialData);
 
   const [categories, setCategories] = useState([]);
-  const URL_CATEGORIES = window.location.hostname.includes('localhost')
-    ? 'http://localhost:8080/categories'
-    : 'https://devsoutinhoflix.herokuapp.com/categories';
 
-  useEffect(() => {
-    fetch(URL_CATEGORIES)
-      .then(async (response) => {
-        const res = await response.json();
+  const reloadList = () => {
+    categoriesRepository
+      .getAll()
+      .then((res) => {
         setCategories([
           ...res,
         ]);
       });
+  };
+
+  useEffect(() => {
+    reloadList();
   }, []);
 
   const handleEdit = (category) => {
@@ -37,15 +39,10 @@ function CategoryRegistration() {
   };
 
   const handleDelete = (category) => {
-    fetch(`${URL_CATEGORIES}/${category.id}`, {
-      method: 'delete',
-      headers: {
-        'Content-type': 'application/json',
-      },
-    })
-      .then(async (response) => {
-        const res = await response.json();
-        setCategories(categories.filter((item) => item.id !== category.id));
+    categoriesRepository
+      .remove(category.id)
+      .then(() => {
+        reloadList();
       });
   };
 
@@ -58,24 +55,19 @@ function CategoryRegistration() {
       <form onSubmit={function handleSubmit(event) {
         event.preventDefault();
         const isEditMode = categories.find((category) => category.id === values.id);
-        const methodMode = isEditMode ? 'put' : 'post';
-        const URLbyMode = isEditMode ? `${URL_CATEGORIES}/${values.id}` : URL_CATEGORIES;
-        fetch(URLbyMode, {
-          method: methodMode,
-          headers: {
-            'Content-type': 'application/json',
-          },
-          body: JSON.stringify(values),
-        })
-          .then(async (response) => {
-            const res = await response.json();
-            if (!isEditMode) {
-              setCategories([
-                ...categories,
-                res,
-              ]);
-            }
-          });
+        if (isEditMode) {
+          categoriesRepository.update(values)
+            .then(() => {
+              console.log('Updated successfully!');
+              reloadList();
+            });
+        } else {
+          categoriesRepository.create(values)
+            .then(() => {
+              console.log('Registered successfully!');
+              reloadList();
+            });
+        }
         clearForm();
       }}
       >

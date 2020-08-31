@@ -10,7 +10,7 @@ function getAll() {
         return res;
       }
 
-      throw new Error('Not possible to fetch data');
+      throw new Error('Not possible to get data');
     });
 }
 
