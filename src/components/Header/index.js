@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/img/GamesflixLogo.png';
 import Image from '../../assets/img/GamesflixImage.png';
 import './Header.css';
-// import ButtonLink from './components/ButtonLink';
 import Button from '../Button';
 
 function Header() {

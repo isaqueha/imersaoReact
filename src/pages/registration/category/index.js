@@ -5,8 +5,10 @@ import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import useForm from '../../../hooks/useForm';
 import categoriesRepository from '../../../repositories/categories';
+import ButtonLink from '../../../components/ButtonLink';
 
 function CategoryRegistration() {
+  const [categories, setCategories] = useState([]);
   const initialData = {
     name: '',
     description: '',
@@ -17,15 +19,11 @@ function CategoryRegistration() {
     handleChange, values, setValues, clearForm,
   } = useForm(initialData);
 
-  const [categories, setCategories] = useState([]);
-
   const reloadList = () => {
     categoriesRepository
       .getAll()
       .then((res) => {
-        setCategories([
-          ...res,
-        ]);
+        setCategories(res);
       });
   };
 
@@ -39,23 +37,28 @@ function CategoryRegistration() {
   };
 
   const handleDelete = (category) => {
-    categoriesRepository
-      .remove(category.id)
+    categoriesRepository.remove(category.id)
       .then(() => {
         reloadList();
       });
   };
 
+  const isEditMode = () => categories.find((category) => category.id === values.id);
+
   return (
     <PageDefault>
+      <Link to="/register/game">
+        Register Game
+      </Link>
+
       <h1>
         Category Registration
       </h1>
 
       <form onSubmit={function handleSubmit(event) {
         event.preventDefault();
-        const isEditMode = categories.find((category) => category.id === values.id);
-        if (isEditMode) {
+
+        if (isEditMode()) {
           categoriesRepository.update(values)
             .then(() => {
               console.log('Updated successfully!');
@@ -95,8 +98,18 @@ function CategoryRegistration() {
           onChange={handleChange}
         />
 
-        <Button>
-          Register
+        <Button type="submit">
+          {isEditMode() ? (
+            <>
+              {' '}
+              UPDATE
+            </>
+          ) : (
+            <>
+              {' '}
+              REGISTER
+            </>
+          )}
         </Button>
       </form>
 
@@ -110,19 +123,15 @@ function CategoryRegistration() {
         {categories.map((category) => (
           <li key={`${category.name}`}>
             {category.name}
-            <Button onClick={() => handleEdit(category)}>
+            <ButtonLink onClick={() => handleEdit(category)}>
               Edit
-            </Button>
-            <Button onClick={() => handleDelete(category)}>
+            </ButtonLink>
+            <ButtonLink onClick={() => handleDelete(category)}>
               Delete
-            </Button>
+            </ButtonLink>
           </li>
         ))}
       </ul>
-
-      <Link to="/">
-        Return to Home
-      </Link>
     </PageDefault>
   );
 }

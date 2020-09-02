@@ -6,15 +6,16 @@ import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import gamesRepository from '../../../repositories/games';
 import categoriesRepository from '../../../repositories/categories';
+import ButtonLink from '../../../components/ButtonLink';
 
 function RegisterGame() {
   const [games, setGames] = useState([]);
   const [categories, setCategories] = useState([]);
   const categoryTitles = categories.map(({ name }) => name);
   const initialData = {
-    name: 'Default Game',
-    url: 'https://itch.io/embed/696379',
-    category: 'Action',
+    name: '',
+    url: '',
+    category: '',
   };
   const {
     handleChange, values, setValues, clearForm,
@@ -50,21 +51,28 @@ function RegisterGame() {
       });
   };
 
+  const isEditMode = () => games.find((game) => game.id === values.id);
+
   return (
     <PageDefault>
-      <h1>Game Registration</h1>
+      <Link to="/register/category">
+        Register Category
+      </Link>
 
-      <form onSubmit={(event) => {
+      <h1>
+        Game Registration
+      </h1>
+
+      <form onSubmit={function handleSubmit(event) {
         event.preventDefault();
         const objectAffected = {
           name: values.name,
           url: values.url,
+          category: values.category,
           gameId: values.id,
         };
 
-        const isEditMode = games.find((game) => game.id === values.id);
-
-        if (isEditMode) {
+        if (isEditMode()) {
           gamesRepository.update(objectAffected)
             .then(() => {
               console.log('Updated successfully!');
@@ -105,7 +113,17 @@ function RegisterGame() {
         />
 
         <Button type="submit">
-          Register
+          {isEditMode() ? (
+            <>
+              {' '}
+              UPDATE
+            </>
+          ) : (
+            <>
+              {' '}
+              REGISTER
+            </>
+          )}
         </Button>
       </form>
 
@@ -119,19 +137,15 @@ function RegisterGame() {
         {games.map((game) => (
           <li key={`${game.name}`}>
             {game.name}
-            <Button onClick={() => handleEdit(game)}>
+            <ButtonLink onClick={() => handleEdit(game)}>
               Edit
-            </Button>
-            <Button onClick={() => handleDelete(game)}>
+            </ButtonLink>
+            <ButtonLink onClick={() => handleDelete(game)}>
               Delete
-            </Button>
+            </ButtonLink>
           </li>
         ))}
       </ul>
-
-      <Link to="/register/category">
-        Register Category
-      </Link>
     </PageDefault>
   );
 }
