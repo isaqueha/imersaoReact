@@ -16,8 +16,8 @@
 - [x] Change "Register" Button according to create/delete
 - [x] Better "Edit" and "Delete" Buttons
 - [x] Category Mapping bug in Game Registration
-- [] Embed Game as in itch.io
-- [] Open Game in new tab
+- [x] Embed Game as in itch.io	
+- [x] Open Game in new tab
 - [] Focus top of form on Edit
 	- Use Redux? Possibly Yes!
 - [] Hover Game Big Preview
@@ -26,4 +26,8 @@
 	- [] List of entries in Registration
 	- [] unnecessary code
 	- [] Translate to English - PT to EN
-	
+	- [] Embedded Image 
+		- [] Hide Button
+		- [] Image size change
+		- [] clickable (<a/>)
+		- [] overlayed
