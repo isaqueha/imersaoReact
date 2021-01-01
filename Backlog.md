@@ -18,16 +18,18 @@
 - [x] Category Mapping bug in Game Registration
 - [x] Embed Game as in itch.io	
 - [x] Open Game in new tab
+- [] Fix Mock Data
 - [] Focus top of form on Edit
 	- Use Redux? Possibly Yes!
-- [] Hover Game Big Preview
 - [] Custom ScrollBar (SimpleBar https://github.com/Grsmto/simplebar)
-- [] Refactor
-	- [] List of entries in Registration
-	- [] unnecessary code
-	- [] Translate to English - PT to EN
-	- [] Embedded Image 
-		- [] Hide Button
-		- [] Image size change
-		- [] clickable (<a/>)
-		- [] overlayed
+- [] Hover Game Big Preview
+
+# Refactor
+- [] List of entries in Registration
+- [] unnecessary code
+- [] Translate to English - PT to EN
+- [] Embedded Image 
+	- [] Hide Button
+	- [] Image size change
+	- [] clickable (<a/>)
+	- [] overlayed
